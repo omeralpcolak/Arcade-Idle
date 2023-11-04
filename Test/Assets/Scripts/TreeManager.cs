@@ -6,7 +6,10 @@ using DG.Tweening;
 public class TreeManager : MonoBehaviour
 {
     public Tree tree;
+
     public bool treeCreated;
+    public bool canCollect;
+
     public List<GameObject> producedFruits = new List<GameObject>();
 
     private void Start()
@@ -14,6 +17,36 @@ public class TreeManager : MonoBehaviour
         StartCoroutine(InstantiateTree());
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player")&& canCollect==true)
+        {
+            Collect();
+            canCollect = false;
+            StartCoroutine(FruitProduction());
+        }
+    }
+
+    private void Update()
+    {
+        if(producedFruits.Count == tree.treeMaxFruitNumberToProduce)
+        {
+            canCollect = true;
+        }
+    }
+
+    private void Collect()
+    {
+        foreach(GameObject fruit in producedFruits)
+        {
+            fruit.transform.DOScale(0f, 1f).OnComplete(delegate
+            {
+                Destroy(fruit.gameObject);
+            });
+            producedFruits.Remove(fruit);
+        }
+        
+    }
 
     IEnumerator InstantiateTree()
     {
@@ -25,7 +58,6 @@ public class TreeManager : MonoBehaviour
             StartCoroutine(FruitProduction());
         });
     }
-
    
     IEnumerator FruitProduction()
     {
@@ -33,7 +65,6 @@ public class TreeManager : MonoBehaviour
         {
             yield return new WaitForSeconds(tree.fruitProductionTime);
             SpawnFruit();
-            
         }
     }
 

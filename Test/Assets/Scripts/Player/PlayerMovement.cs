@@ -36,17 +36,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (joystick.Horizontal != 0 || joystick.Vertical != 0)
         {
-            Vector3 direction = Vector3.RotateTowards(transform.forward, moveVector, rotateSpeed * Time.deltaTime, 0.0f);
+            Vector3 direction = Vector3.RotateTowards(transform.forward, moveVector, rotateSpeed * Time.deltaTime,0);
             transform.rotation = Quaternion.LookRotation(direction);
 
             playerAnim.Play("player_run");
         }
-
         else if (joystick.Horizontal == 0 && joystick.Vertical == 0)
         {
-            playerAnim.Play("player_idle");
+             playerAnim.Play("player_idle");
         }
 
         playerRb.MovePosition(playerRb.position + moveVector);
     }
+
 }
