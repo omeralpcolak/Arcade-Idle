@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class TreeManager : MonoBehaviour
 {
@@ -17,6 +18,19 @@ public class TreeManager : MonoBehaviour
         StartCoroutine(InstantiateTree());
     }
 
+
+    private void Update()
+    {
+        if (producedFruits.Count == tree.treeMaxFruitNumberToProduce)
+        {
+            canCollect = true;
+        }
+
+        tree.currentFruitCount = producedFruits.Count;
+
+        UIManager.instance.UpdateTreeProduceUI(tree);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player")&& canCollect==true)
@@ -27,25 +41,16 @@ public class TreeManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(producedFruits.Count == tree.treeMaxFruitNumberToProduce)
-        {
-            canCollect = true;
-        }
-    }
-
     private void Collect()
     {
         foreach(GameObject fruit in producedFruits)
         {
             fruit.transform.DOScale(0f, 1f).OnComplete(delegate
             {
-                Destroy(fruit.gameObject);
+                Destroy(fruit);
             });
-            producedFruits.Remove(fruit);
         }
-        
+        producedFruits.Clear();
     }
 
     IEnumerator InstantiateTree()
