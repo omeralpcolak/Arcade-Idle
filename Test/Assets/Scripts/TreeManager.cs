@@ -8,65 +8,45 @@ public class TreeManager : MonoBehaviour
 {
     public Tree tree;
 
-    public bool treeCreated;
-    public bool canCollect;
+    public Container treeContainer;
 
-    public List<GameObject> producedFruits = new List<GameObject>();
+    public bool canProduce = true;
+
+    private void Awake()
+    {
+        treeContainer = GetComponent<Container>();
+    }
 
     private void Start()
     {
-        StartCoroutine(InstantiateTree());
+        StartCoroutine(FruitProduction());
     }
 
 
     private void Update()
     {
-        if (producedFruits.Count == tree.treeMaxFruitNumberToProduce)
-        {
-            canCollect = true;
-        }
-
-        tree.currentFruitCount = producedFruits.Count;
-
         UIManager.instance.UpdateTreeProduceUI(tree);
+
+        if (tree.currentFruitCount == tree.treeMaxFruitNumberToProduce)
+        {
+            canProduce = false;
+        }
     }
+
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")&& canCollect==true)
+        if (other.gameObject.CompareTag("Player")&& !canProduce)
         {
-            Collect();
-            canCollect = false;
+            tree.currentFruitCount = 0;
+            canProduce = true;
             StartCoroutine(FruitProduction());
         }
     }
 
-    private void Collect()
-    {
-        foreach(GameObject fruit in producedFruits)
-        {
-            fruit.transform.DOScale(0f, 1f).OnComplete(delegate
-            {
-                Destroy(fruit);
-            });
-        }
-        producedFruits.Clear();
-    }
-
-    IEnumerator InstantiateTree()
-    {
-        Instantiate(tree.treePrefab, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(0.1f);
-        tree.treePrefab.transform.DOScale(0.7f, 1f).OnComplete(delegate
-        {
-            treeCreated = true;
-            StartCoroutine(FruitProduction());
-        });
-    }
-   
     IEnumerator FruitProduction()
     {
-        while (producedFruits.Count < tree.treeMaxFruitNumberToProduce)
+        while(tree.currentFruitCount < tree.treeMaxFruitNumberToProduce)
         {
             yield return new WaitForSeconds(tree.fruitProductionTime);
             SpawnFruit();
@@ -75,9 +55,10 @@ public class TreeManager : MonoBehaviour
 
     private void SpawnFruit()
     {
-        Vector3 fruitPosition = transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 1.5f), Random.Range(-1f, 1f));
-        GameObject fruit = Instantiate(tree.treeFruitPrefab, fruitPosition, Quaternion.identity);
-        producedFruits.Add(fruit);
+        Vector3 fruitPos = tree.treePrefab.transform.position + new Vector3(Random.Range(-1f, 1f), 1, Random.Range(-1f, 1f));
+        GameObject fruit = Instantiate(tree.treeFruitPrefab, fruitPos, Quaternion.identity);
+        treeContainer.AddFruit(fruit);
+        tree.currentFruitCount++;
     }
 
 }

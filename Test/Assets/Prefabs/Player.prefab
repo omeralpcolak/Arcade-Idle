@@ -1106,11 +1106,12 @@ GameObject:
   - component: {fileID: 7054988289742193719}
   - component: {fileID: 2481521663881035164}
   - component: {fileID: 8634029935347145896}
-  - component: {fileID: 3508528929123978234}
   - component: {fileID: 4524434780931186651}
+  - component: {fileID: 3508528929123978234}
+  - component: {fileID: 2948578558748397177}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1177,24 +1178,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &3508528929123978234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4666849132447565173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffdef3b5248c64ffb80eb6031ccd7be8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  moveSpeed: 5
-  rotateSpeed: 5
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!136 &4524434780931186651
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1215,9 +1201,37 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2
-  m_Height: 1.36
+  m_Height: 1.2390314
   m_Direction: 1
-  m_Center: {x: 0, y: 0.57, z: 0}
+  m_Center: {x: 0, y: 0.6304843, z: 0}
+--- !u!114 &3508528929123978234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666849132447565173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffdef3b5248c64ffb80eb6031ccd7be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
+  moveSpeed: 5
+  rotateSpeed: 10
+--- !u!114 &2948578558748397177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666849132447565173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be6ecfd925bd4c3e802fcda643d4a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruits: []
 --- !u!1 &5078293847997977255
 GameObject:
   m_ObjectHideFlags: 0
