@@ -7,22 +7,33 @@ public class Player : MonoBehaviour
     Container playerContainer;
 
 
+    private void Awake()
+    {
+        playerContainer = GetComponent<Container>();
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Tree"))
         {
-            Debug.Log("trigger is working");
             TreeManager treeManager = other.GetComponent<TreeManager>();
             List<GameObject> treeFruits = treeManager.treeContainer.fruits;
+            
 
-            foreach (GameObject fruit in treeFruits)
+            if (treeManager.canProduce == false)
             {
-                Debug.Log("working!");
-                playerContainer.AddFruit(fruit);
-            }
 
-            // Clear the fruits from the tree
-            treeManager.treeContainer.ResetFruitList();
+                for(int i=0; i<treeFruits.Count; i++)
+                {
+                    playerContainer.AddFruit(treeManager.tree.treeFruitPrefab);
+                }
+                
+                
+                treeManager.treeContainer.ResetFruitList();
+                treeManager.tree.currentFruitCount = 0;
+                StartCoroutine(treeManager.FruitProduction());
+
+            }
         }
     }
 

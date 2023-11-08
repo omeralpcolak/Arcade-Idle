@@ -7,14 +7,16 @@ using TMPro;
 public class TreeManager : MonoBehaviour
 {
     public Tree tree;
-
     public Container treeContainer;
 
     public bool canProduce = true;
 
+    private BoxCollider boxCollider;
+
     private void Awake()
     {
         treeContainer = GetComponent<Container>();
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     private void Start()
@@ -30,21 +32,16 @@ public class TreeManager : MonoBehaviour
         if (tree.currentFruitCount == tree.treeMaxFruitNumberToProduce)
         {
             canProduce = false;
+            boxCollider.enabled = true;
         }
-    }
-
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player")&& !canProduce)
+        else
         {
-            tree.currentFruitCount = 0;
             canProduce = true;
-            StartCoroutine(FruitProduction());
+            boxCollider.enabled = false;
         }
     }
 
-    IEnumerator FruitProduction()
+    public IEnumerator FruitProduction()
     {
         while(tree.currentFruitCount < tree.treeMaxFruitNumberToProduce)
         {
