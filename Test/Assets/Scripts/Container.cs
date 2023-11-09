@@ -7,8 +7,8 @@ using DG.Tweening;
 
 public class Container: MonoBehaviour
 {
-    
-    public List<GameObject> fruits = new List<GameObject>();
+
+    public List<GameObject> fruits;
 
    
     public void AddFruit(GameObject fruit)

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 
 
-[Serializable]
+[System.Serializable]
 public class Tree
 {
     public string treeName;
