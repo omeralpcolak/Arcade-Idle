@@ -32,12 +32,25 @@ public class Player : MonoBehaviour
         UIManager.instance.DisplayFruitCounts(lemonCount, lemonCountTxt);
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Tree"))
+        {
+            CollectFruit(other);
+        }
+
+        if (other.gameObject.CompareTag("FruitBox"))
+        {
+            GiveFruit(other);
+        }
+    }
 
     private int CountingFruits(string searchingFruitName)
     {
+        
         int counter = 0;
 
-        foreach(GameObject fruit in playerContainer.fruits)
+        foreach (GameObject fruit in playerContainer.fruits)
         {
             string fruitName = fruit.name.ToLower();
 
@@ -49,15 +62,6 @@ public class Player : MonoBehaviour
 
         return counter;
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Tree"))
-        {
-            CollectFruit(other);
-        }
-    }
-
 
     private void CollectFruit(Collider other)
     {
@@ -81,4 +85,13 @@ public class Player : MonoBehaviour
         
     }
 
+    private void GiveFruit(Collider other)
+    {
+        Container boxContainer = other.GetComponent<Container>();
+
+        if (boxContainer != null)
+        {
+            boxContainer.fruits = playerContainer.fruits;
+        }
+    }
 }
