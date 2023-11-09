@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    
+
     private void Awake()
     {
         instance = this;
@@ -22,4 +24,11 @@ public class UIManager : MonoBehaviour
         tree.fruitNumberImg.fillAmount = Mathf.MoveTowards(tree.fruitNumberImg.fillAmount, tree.targetFill, tree.fruitNumberImgFillSpeed * Time.deltaTime);
 
     }
+
+
+    public void DisplayFruitCounts(int fruitNumber, TMP_Text fruitNumberText)
+    {
+        fruitNumberText.text = fruitNumber.ToString();
+    }
+    
 }

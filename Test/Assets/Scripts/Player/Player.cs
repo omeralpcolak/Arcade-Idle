@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     Container playerContainer;
 
-    public List<GameObject> apples = new List<GameObject>();
-    public List<GameObject> lemons = new List<GameObject>();
+    private string appleName = "apple";
+    private string lemonName = "lemon";
+
+    [SerializeField] private TMP_Text appleCountTxt;
+    [SerializeField] private TMP_Text lemonCountTxt;
+
+
+    private int appleCount;
+    private int lemonCount;
 
 
     private void Awake()
@@ -15,12 +23,38 @@ public class Player : MonoBehaviour
         playerContainer = GetComponent<Container>();
     }
 
+    private void Update()
+    {
+        appleCount = CountingFruits(appleName);
+        lemonCount = CountingFruits(lemonName);
+
+        UIManager.instance.DisplayFruitCounts(appleCount, appleCountTxt);
+        UIManager.instance.DisplayFruitCounts(lemonCount, lemonCountTxt);
+    }
+
+
+    private int CountingFruits(string searchingFruitName)
+    {
+        int counter = 0;
+
+        foreach(GameObject fruit in playerContainer.fruits)
+        {
+            string fruitName = fruit.name.ToLower();
+
+            if (fruitName.Contains(searchingFruitName.ToLower()))
+            {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Tree"))
         {
             CollectFruit(other);
-            SeparateFruits();
         }
     }
 
@@ -45,23 +79,6 @@ public class Player : MonoBehaviour
             }
         }
         
-    }
-
-    private void SeparateFruits()
-    {
-        foreach (GameObject fruit in playerContainer.fruits)
-        {
-            string fruitName = fruit.name.ToLower();
-
-            if (fruitName.Contains("apple"))
-            {
-                apples.Add(fruit);
-            }
-            else if (fruitName.Contains("lemon"))
-            {
-                lemons.Add(fruit);
-            }
-        }
     }
 
 }
