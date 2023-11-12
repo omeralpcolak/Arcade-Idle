@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private TMP_Text appleCountTxt;
     [SerializeField] private TMP_Text lemonCountTxt;
 
-
+    
     private int appleCount;
     private int lemonCount;
 
@@ -25,8 +25,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        appleCount = CountingFruits(appleName);
-        lemonCount = CountingFruits(lemonName);
+        appleCount = playerContainer.CountingFruits(appleName);
+        lemonCount = playerContainer.CountingFruits(lemonName);
 
         UIManager.instance.DisplayFruitCounts(appleCount, appleCountTxt);
         UIManager.instance.DisplayFruitCounts(lemonCount, lemonCountTxt);
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private int CountingFruits(string searchingFruitName)
+    /*private int CountingFruits(string searchingFruitName)
     {
         
         int counter = 0;
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         }
 
         return counter;
-    }
+    }*/
 
     private void CollectFruit(Collider other)
     {
@@ -82,7 +82,6 @@ public class Player : MonoBehaviour
                 StartCoroutine(treeManager.FruitProduction());
             }
         }
-        
     }
 
     private void GiveFruit(Collider other)
@@ -91,7 +90,12 @@ public class Player : MonoBehaviour
 
         if (boxContainer != null)
         {
-            boxContainer.fruits = playerContainer.fruits;
+            for(int i = 0; i < playerContainer.fruits.Count; i++)
+            {
+                boxContainer.fruits.Add(playerContainer.fruits[i]);
+            }
+
+            playerContainer.fruits.Clear();
         }
     }
 }

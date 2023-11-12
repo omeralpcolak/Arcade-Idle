@@ -52,7 +52,7 @@ public class TreeManager : MonoBehaviour
 
     private void SpawnFruit()
     {
-        Vector3 fruitPos = tree.treePrefab.transform.position + new Vector3(Random.Range(-1f, 1f), 1, Random.Range(-1f, 1f));
+        Vector3 fruitPos = tree.treePrefab.transform.position + new Vector3(Random.Range(-1f, 1f), 1.5f, Random.Range(-1f, 1f));
         GameObject fruit = Instantiate(tree.treeFruitPrefab, fruitPos, Quaternion.identity);
         treeContainer.AddFruit(fruit);
         tree.currentFruitCount++;

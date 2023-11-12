@@ -27,5 +27,22 @@ public class Container: MonoBehaviour
         }
         fruits.Clear();
     }
+
+    public int CountingFruits(string searchingFruitName)
+    {
+        int counter = 0;
+
+        foreach (GameObject fruit in fruits)
+        {
+            string fruitName = fruit.name.ToLower();
+
+            if (fruitName.Contains(searchingFruitName.ToLower()))
+            {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
     
 }
