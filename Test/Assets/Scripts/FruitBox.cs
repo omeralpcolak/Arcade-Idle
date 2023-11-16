@@ -8,6 +8,16 @@ public class FruitBox : MonoBehaviour
     Container fruitBoxContainer;
     Animator fruitBoxAnim;
 
+    public GameObject appleJuice;
+    //public GameObject lemonJuice;
+
+    private int appleNumber;
+    //private int lemonNumber;
+
+    private bool canProduceJuice;
+
+    public Transform juiceSpawnPos;
+
     private void Awake()
     {
         fruitBoxContainer = GetComponent<Container>();
@@ -17,6 +27,40 @@ public class FruitBox : MonoBehaviour
     private void Update()
     {
         fruitBoxContainer.UpdatingUiAndFruitsCount();
+
+        appleNumber = fruitBoxContainer.appleCount;
+        //lemonNumber = fruitBoxContainer.lemonCount;
+
+        CheckingForProduceJuice();
+    }
+
+    private void CheckingForProduceJuice()
+    {
+        canProduceJuice = appleNumber >= 3;
+
+        if (canProduceJuice)
+        {
+            StartCoroutine(ProduceFruit(appleJuice));
+        }
+    }
+
+    IEnumerator ProduceFruit(GameObject juice)
+    {
+        while (canProduceJuice)
+        {
+            Instantiate(juice, juiceSpawnPos.position, Quaternion.identity);
+
+            fruitBoxContainer.ReduceFruitCount("apple", 3);
+
+            canProduceJuice = false;
+
+            yield return new WaitForSeconds(1f);
+
+            canProduceJuice = true;
+
+
+
+        }
     }
 
 
@@ -33,5 +77,6 @@ public class FruitBox : MonoBehaviour
         fruitBoxAnim.SetBool("open",false);
     }
 
+    
 
 }

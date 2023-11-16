@@ -14,8 +14,8 @@ public class Container: MonoBehaviour
     [SerializeField] private TMP_Text lemonCountTxt;
 
 
-    private int appleCount;
-    private int lemonCount;
+    public int appleCount;
+    public int lemonCount;
 
     public List<GameObject> fruits;
 
@@ -62,6 +62,19 @@ public class Container: MonoBehaviour
         }
 
         return counter;
+    }
+
+    public void ReduceFruitCount(string fruitName,int quantity)
+    {
+        for (int i = 0; i < quantity; i++)
+        {
+            GameObject fruitToRemove = fruits.Find(fruit => fruit.name.ToLower().Contains(fruitName.ToLower()));
+
+            if (fruitToRemove != null)
+            {
+                fruits.Remove(fruitToRemove);
+            }
+        }
     }
     
 }
