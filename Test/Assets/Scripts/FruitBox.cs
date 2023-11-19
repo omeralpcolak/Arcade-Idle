@@ -9,10 +9,10 @@ public class FruitBox : MonoBehaviour
     Animator fruitBoxAnim;
 
     public GameObject appleJuice;
-    //public GameObject lemonJuice;
+    public GameObject lemonJuice;
 
     private int appleNumber;
-    //private int lemonNumber;
+    private int lemonNumber;
 
     private bool canProduceJuice;
 
@@ -29,38 +29,40 @@ public class FruitBox : MonoBehaviour
         fruitBoxContainer.UpdatingUiAndFruitsCount();
 
         appleNumber = fruitBoxContainer.appleCount;
-        //lemonNumber = fruitBoxContainer.lemonCount;
+        lemonNumber = fruitBoxContainer.lemonCount;
 
         CheckingForProduceJuice();
     }
 
     private void CheckingForProduceJuice()
     {
-        canProduceJuice = appleNumber >= 3;
-
-        if (canProduceJuice)
+        if (appleNumber >= 5 && !canProduceJuice)
         {
-            StartCoroutine(ProduceFruit(appleJuice));
+            canProduceJuice = true;
+            StartCoroutine(ProduceJuice(appleJuice, appleNumber,5,"apple"));
+        }
+
+        if(lemonNumber >=2 &&!canProduceJuice)
+        {
+            canProduceJuice = true;
+            StartCoroutine(ProduceJuice(lemonJuice, lemonNumber, 2,"lemon"));
         }
     }
 
-    IEnumerator ProduceFruit(GameObject juice)
+    IEnumerator ProduceJuice(GameObject juice, int numberOfFruits, int fruitsPerJuice, string fruitName)
     {
-        while (canProduceJuice)
+        int juicesToProduce = numberOfFruits / fruitsPerJuice; 
+
+        for (int i = 0; i < juicesToProduce; i++)
         {
             Instantiate(juice, juiceSpawnPos.position, Quaternion.identity);
 
-            fruitBoxContainer.ReduceFruitCount("apple", 3);
-
-            canProduceJuice = false;
+            fruitBoxContainer.ReduceFruitCount(fruitName, fruitsPerJuice); 
 
             yield return new WaitForSeconds(1f);
-
-            canProduceJuice = true;
-
-
-
         }
+
+        canProduceJuice = false;
     }
 
 
