@@ -40,8 +40,14 @@ public class JuiceBox : MonoBehaviour
 
         yield return new WaitForSeconds(6f);
 
+        foreach(GameObject juice in juices)
+        {
+            GameManager.instance.SellJuice(juice);
+            Destroy(juice);
+        }
+        juices.Clear();
+
         transform.DOMoveX(firstPos.position.x, 5f);
     }
-
 
 }

@@ -30,5 +30,11 @@ public class UIManager : MonoBehaviour
     {
         fruitNumberText.text = fruitNumber.ToString();
     }
+
+    public void UpdateWallet(int walletBalance, TMP_Text walletTxt)
+    {
+        walletTxt.text = walletBalance.ToString();
+        PlayerPrefs.SetInt("Wallet", walletBalance);
+    }
     
 }
