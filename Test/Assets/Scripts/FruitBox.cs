@@ -7,7 +7,9 @@ public class FruitBox : MonoBehaviour
 
     Container fruitBoxContainer;
     Animator fruitBoxAnim;
+    public JuiceBox juiceBox;
 
+    public GameObject juiceBoxObj;
     public GameObject appleJuice;
     public GameObject lemonJuice;
 
@@ -15,6 +17,7 @@ public class FruitBox : MonoBehaviour
     private int lemonNumber;
 
     private bool canProduceJuice;
+
 
     public Transform juiceSpawnPos;
 
@@ -55,8 +58,9 @@ public class FruitBox : MonoBehaviour
 
         for (int i = 0; i < juicesToProduce; i++)
         {
-            Instantiate(juice, juiceSpawnPos.position, Quaternion.identity);
-
+            GameObject juiceBottle = Instantiate(juice, juiceSpawnPos.position, Quaternion.identity);
+            juiceBottle.transform.SetParent(juiceBox.transform);
+            juiceBox.AddJuice(juiceBottle);
             fruitBoxContainer.ReduceFruitCount(fruitName, fruitsPerJuice); 
 
             yield return new WaitForSeconds(1f);

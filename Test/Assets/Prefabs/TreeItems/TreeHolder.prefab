@@ -334,7 +334,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a433aa8c7c5bc462fb85b83e49093345, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -402,7 +402,8 @@ MonoBehaviour:
     fruitNumberImgFillSpeed: 0.5
     targetFill: 1
     timeUntilNextFruit: 0
-  producedFruits: []
+  treeContainer: {fileID: 0}
+  canProduce: 1
 --- !u!114 &2102482659399311995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +416,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be6ecfd925bd4c3e802fcda643d4a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  appleCountTxt: {fileID: 0}
+  lemonCountTxt: {fileID: 0}
+  appleCount: 0
+  lemonCount: 0
   fruits: []
 --- !u!1 &7192255203894566108
 GameObject:
@@ -553,7 +558,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a433aa8c7c5bc462fb85b83e49093345, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

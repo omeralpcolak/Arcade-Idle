@@ -60,7 +60,6 @@ public class Player : MonoBehaviour
     private void GiveFruit(Collider other)
     {
         Container boxContainer = other.GetComponent<Container>();
-        FruitBox fruitBox = other.GetComponent<FruitBox>();
 
         if (boxContainer != null)
         {
