@@ -8,23 +8,57 @@ public class JuiceBox : MonoBehaviour
     public List<GameObject> juices = new List<GameObject>();
 
     [SerializeField] int juiceCapacity;
+    [SerializeField] int moveDuration;
+
+    private BoxCollider boxCollider;
 
     public Transform firstPos;
     public Transform finPos;
 
     public bool canGiveJuice;
 
+    private void Awake()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
+
     private void Start()
     {
-
+        canGiveJuice = true;
     }
 
     private void Update()
     {
+        CheckingCanGiveJuice();
+    }
+
+    private void CheckingCanGiveJuice()
+    {
+        if (juices.Count == 0)
+        {
+            canGiveJuice = false;
+        }
+        else
+        {
+            canGiveJuice = true;
+        }
+
         if (canGiveJuice)
         {
-            StartCoroutine(GiveJuiceToTruck());
+            boxCollider.enabled = true;
+        }
+        else if (!canGiveJuice)
+        {
+            boxCollider.enabled = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player") && canGiveJuice)
+        {
             canGiveJuice = false;
+            StartCoroutine(GiveJuiceToTruck(moveDuration));
         }
     }
 
@@ -33,12 +67,11 @@ public class JuiceBox : MonoBehaviour
         juices.Add(juice);
     }
 
-    IEnumerator GiveJuiceToTruck()
+    public IEnumerator GiveJuiceToTruck(float moveDuration)
     {
+        transform.DOMoveX(finPos.position.x, moveDuration);
 
-        transform.DOMoveX(finPos.position.x, 5f);
-
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(moveDuration +1);
 
         foreach(GameObject juice in juices)
         {
@@ -47,7 +80,10 @@ public class JuiceBox : MonoBehaviour
         }
         juices.Clear();
 
-        transform.DOMoveX(firstPos.position.x, 5f);
+        transform.DOMoveX(firstPos.position.x, moveDuration).OnComplete(delegate
+        {
+            canGiveJuice = true;
+        });
     }
 
 }

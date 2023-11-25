@@ -7,6 +7,7 @@ TagManager:
   - Tree
   - FruitBox
   - Juice
+  - JuiceBox
   layers:
   - Default
   - TransparentFX
