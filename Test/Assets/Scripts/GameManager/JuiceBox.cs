@@ -69,9 +69,9 @@ public class JuiceBox : MonoBehaviour
 
     public IEnumerator GiveJuiceToTruck(float moveDuration)
     {
-        transform.DOMoveX(finPos.position.x, moveDuration);
+        yield return transform.DOMoveX(finPos.position.x, moveDuration).SetEase(Ease.Linear).WaitForKill();
 
-        yield return new WaitForSeconds(moveDuration +1);
+        yield return new WaitForSeconds(1f);
 
         foreach(GameObject juice in juices)
         {

@@ -6,6 +6,7 @@ using TMPro;
 
 public class TreeManager : MonoBehaviour
 {
+    public ProductConfig product;
     public Tree tree;
     public Container treeContainer;
 

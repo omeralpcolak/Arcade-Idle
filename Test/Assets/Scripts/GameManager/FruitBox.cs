@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class FruitBox : MonoBehaviour
 {
+    [System.Serializable]
+    public class ProductMatching
+    {
+        public ProductConfig sourceProduct;
+        public ProductConfig targetProduct;
+    }
+
+    public List<ProductMatching> productMatches = new List<ProductMatching>();
+    public void Generate(ProductItem item)
+    {
+        StartCoroutine(Animate());
+        IEnumerator Animate()
+        {
+            yield return new WaitForSeconds(1f);
+            ProductMatching found = productMatches.Find(x => x.sourceProduct == item.config);
+            ProductItem newItem = found.targetProduct.Generate(transform);
+            Destroy(item.gameObject);
+        }
+    }
 
     Container fruitBoxContainer;
     Animator fruitBoxAnim;

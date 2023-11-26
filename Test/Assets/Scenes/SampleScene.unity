@@ -5160,6 +5160,18 @@ PrefabInstance:
       propertyPath: juiceSpawnPos
       value: 
       objectReference: {fileID: 1112771816}
+    - target: {fileID: 5841865310631671136, guid: 8fdf9e54076034359b37bef74562a4fe, type: 3}
+      propertyPath: productMatches.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5841865310631671136, guid: 8fdf9e54076034359b37bef74562a4fe, type: 3}
+      propertyPath: productMatches.Array.data[0].sourceProduct
+      value: 
+      objectReference: {fileID: 11400000, guid: 99d856a9bb45e4b76af78956bb64580d, type: 2}
+    - target: {fileID: 5841865310631671136, guid: 8fdf9e54076034359b37bef74562a4fe, type: 3}
+      propertyPath: productMatches.Array.data[0].targetProduct
+      value: 
+      objectReference: {fileID: 11400000, guid: b414b81cd2a284c7ca7086b55b19ae58, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8804081226173676693, guid: 8fdf9e54076034359b37bef74562a4fe, type: 3}
@@ -9244,13 +9256,13 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1417272711}
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 1053470127}
+  - {fileID: 329998971}
   - {fileID: 342454198}
   - {fileID: 2549806613121637406}
-  - {fileID: 329998971}
-  - {fileID: 1417272711}
   - {fileID: 8422810406410751041}
   - {fileID: 1443204402}
   - {fileID: 1489098392}
