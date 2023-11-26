@@ -35,5 +35,12 @@ public class UIManager : MonoBehaviour
     {
         walletTxt.text = walletBalance.ToString();
     }
+
+    public void RandomCashierDialog(TMP_Text dialogueText,List<string> dialogue)
+    {
+        int randomIndex = Random.Range(0, dialogue.Count);
+
+        dialogueText.text = dialogue[randomIndex];
+    }
     
 }

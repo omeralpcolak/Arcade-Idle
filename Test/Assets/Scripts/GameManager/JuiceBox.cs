@@ -6,7 +6,7 @@ using DG.Tweening;
 public class JuiceBox : MonoBehaviour
 {
     public List<GameObject> juices = new List<GameObject>();
-
+    public CashierDialogs cashierDialogs;
     [SerializeField] int juiceCapacity;
     [SerializeField] int moveDuration;
 
@@ -69,17 +69,16 @@ public class JuiceBox : MonoBehaviour
 
     public IEnumerator GiveJuiceToTruck(float moveDuration)
     {
-        yield return transform.DOMoveX(finPos.position.x, moveDuration).SetEase(Ease.Linear).WaitForKill();
+        yield return transform.DOMoveX(finPos.position.x, moveDuration).WaitForKill();
 
-        yield return new WaitForSeconds(1f);
+        cashierDialogs.RandomDialogue();
 
-        foreach(GameObject juice in juices)
+        foreach (GameObject juice in juices)
         {
             GameManager.instance.SellJuice(juice);
             Destroy(juice);
         }
         juices.Clear();
-
         transform.DOMoveX(firstPos.position.x, moveDuration).OnComplete(delegate
         {
             canGiveJuice = true;

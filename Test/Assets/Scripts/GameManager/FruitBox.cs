@@ -91,7 +91,7 @@ public class FruitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && fruitBoxContainer.fruits.Count != 0)
+        if (other.gameObject.CompareTag("Player"))
         {
             fruitBoxAnim.SetBool("open", true);
         }
