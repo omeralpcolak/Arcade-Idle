@@ -11,5 +11,6 @@ public class CashierDialogs : MonoBehaviour
     public void RandomDialogue()
     {
         UIManager.instance.RandomCashierDialog(dialogueTxt, dialogs);
+        Debug.Log("random dialogue is worked");
     }
 }

@@ -53,7 +53,7 @@ public class JuiceBox : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player") && canGiveJuice)
         {
@@ -71,7 +71,7 @@ public class JuiceBox : MonoBehaviour
     {
         yield return transform.DOMoveX(finPos.position.x, moveDuration).WaitForKill();
 
-        cashierDialogs.RandomDialogue();
+        Debug.Log("juicebox is working");
 
         foreach (GameObject juice in juices)
         {
@@ -79,6 +79,9 @@ public class JuiceBox : MonoBehaviour
             Destroy(juice);
         }
         juices.Clear();
+
+        cashierDialogs.RandomDialogue();
+
         transform.DOMoveX(firstPos.position.x, moveDuration).OnComplete(delegate
         {
             canGiveJuice = true;
