@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -36,11 +37,15 @@ public class UIManager : MonoBehaviour
         walletTxt.text = walletBalance.ToString();
     }
 
-    public void RandomCashierDialog(TMP_Text dialogueText,List<string> dialogue)
+    public void RandomCashierDialog(TMP_Text dialogueText,List<string> dialogue, Image textBubble)
     {
         int randomIndex = Random.Range(0, dialogue.Count);
-
         dialogueText.text = dialogue[randomIndex];
+        textBubble.GetComponent<CanvasGroup>().DOFade(1, 1f).OnComplete(delegate
+        {
+            textBubble.GetComponent<CanvasGroup>().DOFade(0, 1f);
+        });
+        
     }
     
 }
