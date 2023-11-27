@@ -30,7 +30,7 @@ public class Container: MonoBehaviour
         {
             fruit.transform.DOScale(0, 1f).OnComplete(delegate
             {
-                Destroy(fruit);
+                Destroy(fruit.gameObject);
             });
         }
         fruits.Clear();

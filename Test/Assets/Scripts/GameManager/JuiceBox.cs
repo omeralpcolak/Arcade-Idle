@@ -57,7 +57,6 @@ public class JuiceBox : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player") && canGiveJuice)
         {
-            canGiveJuice = false;
             StartCoroutine(GiveJuiceToTruck(moveDuration));
         }
     }
@@ -69,23 +68,28 @@ public class JuiceBox : MonoBehaviour
 
     public IEnumerator GiveJuiceToTruck(float moveDuration)
     {
-        yield return transform.DOMoveX(finPos.position.x, moveDuration).WaitForKill();
+        canGiveJuice = false;
 
-        Debug.Log("juicebox is working");
-
-        foreach (GameObject juice in juices)
+        while (!canGiveJuice)
         {
-            GameManager.instance.SellJuice(juice);
-            Destroy(juice);
-        }
-        juices.Clear();
+            yield return transform.DOMoveX(finPos.position.x, moveDuration).WaitForKill();
 
-        cashierDialogs.RandomDialogue();
+            Debug.Log("juicebox is working");
 
-        transform.DOMoveX(firstPos.position.x, moveDuration).OnComplete(delegate
-        {
+            foreach (GameObject juice in juices)
+            {
+                GameManager.instance.SellJuice(juice);
+                Destroy(juice);
+            }
+            juices.Clear();
+
+            cashierDialogs.RandomDialogue();
+
+            yield return transform.DOMoveX(firstPos.position.x, moveDuration).WaitForKill();
+
             canGiveJuice = true;
-        });
+        }
+        
     }
 
 }
