@@ -16,6 +16,7 @@ public class JuiceBox : MonoBehaviour
     public Transform finPos;
 
     public bool canGiveJuice;
+    private bool coroutineRunning = false;
 
     private void Awake()
     {
@@ -55,7 +56,7 @@ public class JuiceBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player") && canGiveJuice)
+        if (other.gameObject.CompareTag("Player") && canGiveJuice && !coroutineRunning)
         {
             StartCoroutine(GiveJuiceToTruck(moveDuration));
         }
@@ -68,6 +69,7 @@ public class JuiceBox : MonoBehaviour
 
     public IEnumerator GiveJuiceToTruck(float moveDuration)
     {
+        coroutineRunning = true;
         canGiveJuice = false;
 
         while (!canGiveJuice)
@@ -89,7 +91,7 @@ public class JuiceBox : MonoBehaviour
 
             canGiveJuice = true;
         }
-        
-    }
 
+        coroutineRunning = false;
+    }
 }
